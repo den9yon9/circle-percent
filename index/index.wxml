@@ -1,0 +1,4 @@
+<view class="con">
+  <circle fullValue="100" expect-value="80" current-value="60" current-color="#88D63C" expect-color="#DBDBDC" background-color="#4C99B6" text-color="#fff" speed="0.8" control-width="200"></circle>
+</view>
+
