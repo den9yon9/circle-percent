@@ -1,5 +1,6 @@
 # circle-percent
 微信小程序进度盘组件
+<br>
 ![效果图](https://raw.githubusercontent.com/den9yon9/circle-percent/master/circle-percent.gif)
 
 ## 组件参数

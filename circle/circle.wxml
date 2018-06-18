@@ -1,1 +1,1 @@
-<canvas canvas-id="circle" style="{{'width:'+controlWidth+'px;'+'height:'+controlWidth+'px'}}"></canvas>
+<canvas canvas-id="circle" style="{{'width:'+controlWidth+'rpx;'+'height:'+controlWidth+'rpx'}}"></canvas>

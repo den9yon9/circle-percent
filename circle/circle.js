@@ -2,7 +2,7 @@ Component({
   properties: {
     controlWidth: {
       type: Number,
-      value: 300
+      value: 1200
     },
     fullValue: {
       // 目标值,总值
@@ -45,13 +45,20 @@ Component({
   },
 
   ready() {
+    // 换算rpx到canvas中
+    wx.getSystemInfo({
+      success: res=>{
+        this.width = res.windowWidth/750 * this.data.controlWidth
+      }
+    })
+    
     this.ctx = wx.createCanvasContext('circle', this)
     // 圆弧起点
     this.start = 0.75 * Math.PI
     // 圆弧半径
-    this.radius = this.data.controlWidth / 2 - 24;
+    this.radius = this.width / 2 - 24;
     // 圆弧原心坐标
-    this.x = this.y = this.data.controlWidth / 2
+    this.x = this.y = this.width / 2
     // 目标终点值
     this.fullEnd = this.start + 1.5 * Math.PI
     // 期望终点值
@@ -100,9 +107,9 @@ Component({
       this.ctx.closePath()
     },
     draw() {
-      this.drawRadius(this.data.backgroundColor, 'full', this.fullEnd, 26, this.radius - 2)
-      this.drawRadius(this.data.expectColor, 'expect', this.expectEnd, 30, this.radius)
-      this.drawRadius(this.data.currentColor, 'current', this.currentEnd, 34, this.radius + 2)
+      this.drawRadius(this.data.backgroundColor, 'full', this.fullEnd, this.width/10-4, this.radius - 2)
+      this.drawRadius(this.data.expectColor, 'expect', this.expectEnd, this.width/10, this.radius)
+      this.drawRadius(this.data.currentColor, 'current', this.currentEnd, this.width/10+4, this.radius + 2)
 
       // 画文本
       if (this.fullFlag && this.expectFlag && this.currentFlag) {
@@ -113,16 +120,16 @@ Component({
 
       // 画百分比数值,设置字体大小与位置
       this.ctx.setTextAlign('center')
-      this.ctx.setFontSize(this.data.controlWidth / 3.5)
-      this.ctx.fillText(this.text, this.data.controlWidth / 2 - this.data.controlWidth / 16, this.data.controlWidth / 1.6)
+      this.ctx.setFontSize(this.width / 4.5)
+      this.ctx.fillText(this.text, this.width / 2 - this.width / 16, this.width / 1.8)
 
       // 测量百分比数值宽度,以适配%位置
       const txtWidth = this.ctx.measureText(this.text).width
 
       // 画%,设置%字体与位置
       this.ctx.setTextAlign('left')
-      this.ctx.setFontSize(this.data.controlWidth / 8)
-      this.ctx.fillText('%', this.data.controlWidth * 7 / 16 + txtWidth / 2, this.data.controlWidth / 2)
+      this.ctx.setFontSize(this.width / 8)
+      this.ctx.fillText('%', this.width * 7 / 16 + txtWidth / 2, this.width / 2)
       if (this.text < this.data.currentValue) {
         this.text = this.text + 1
       }
